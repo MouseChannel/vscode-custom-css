@@ -1,14 +1,7 @@
 {
-	"name": "vscode-custom-css",
-	"displayName": "Custom CSS and JS Loader",
-	"description": "Custom CSS and JS for Visual Studio Code",
+	"name": "mousechannel-vscode-custom-css",
 	"version": "7.4.0",
-	"publisher": "be5invis",
-	"author": {
-		"email": "belleve@typeof.net",
-		"name": "Belleve Invis",
-		"url": "https://typeof.net"
-	},
+	"publisher": "mousechannel",
 	"engines": {
 		"vscode": "^1.93.0"
 	},
@@ -18,13 +11,13 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/be5invis/vscode-custom-css"
+		"url": "https://github.com/mousechannel/vscode-custom-css"
 	},
 	"bugs": {
-		"url": "https://github.com/be5invis/vscode-custom-css/issues"
+		"url": "https://github.com/mousechannel/vscode-custom-css/issues"
 	},
 	"preview": true,
-	"icon": "images/logo.png",
+	"icon": "images/avatar.png",
 	"galleryBanner": {
 		"color": "#EEEEEE"
 	},

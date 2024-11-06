@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }, true);
 
     function runMyScript() {
-        const targetDiv = document.querySelector(".monaco-workbench");
+      const targetDiv = document.querySelector(".monaco-workbench");
+       const stickyDiv = document.querySelector(".sticky-widget")
 
         // Remove existing element if it already exists
         const existingElement = document.getElementById("command-blur");
@@ -64,17 +65,29 @@ document.addEventListener('DOMContentLoaded', function() {
         newElement.addEventListener('click', function() {
             newElement.remove();
         });
+      const newElement1 = document.createElement("div");
+      newElement1.setAttribute('id', 'command-blur');
+    
+  
+        newElement1.addEventListener('click', function() {
+            newElement1.remove();
+        });
 
         // Append the new element as a child of the targetDiv
-        targetDiv.appendChild(newElement);
+      targetDiv.appendChild(newElement);
+      stickyDiv.appendChild(newElement1)
     }
 
     // Remove the backdrop blur from the DOM when esc key is pressed.
     function handleEscape() {
-        const element = document.getElementById("command-blur");
-        if (element) {
-            element.click();
-        }
+      var element = document.getElementById("command-blur");
+      while (element)
+      {
+        element.click();
+        element = document.getElementById("command-blur");
+       }
+       
+       
     }
 });
 
