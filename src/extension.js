@@ -180,7 +180,19 @@ function activate(context) {
 
 	async function patchHtml(config) {
 		let res = "";
-		for (const item of config.imports) {
+		 
+
+
+		// for (const item of config.imports) {
+		// 	const imp = await patchHtmlForItem(item);
+		// 	if (imp) res += imp;
+		// }
+		const   mycustom = [
+			path.join("file://", __dirname ,"../my/my.js"),
+			path.join("file://",__dirname ,"../my/custom-vscode.css"),
+
+		];
+		for (const item of mycustom) {
 			const imp = await patchHtmlForItem(item);
 			if (imp) res += imp;
 		}
