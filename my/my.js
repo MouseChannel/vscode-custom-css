@@ -1,94 +1,117 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const checkElement = setInterval(() => {
-        const commandDialog = document.querySelector(".quick-input-widget");
-        if (commandDialog) {
-          // Apply the blur effect immediately if the command dialog is visible
-          if (commandDialog.style.display !== "none") {
-            runMyScript();
+document.addEventListener('DOMContentLoaded', function ()
+{
+  const checkElement = setInterval(() =>
+  {
+    const commandDialog = document.querySelector(".quick-input-widget");
+    if (commandDialog)
+    {
+      // Apply the blur effect immediately if the command dialog is visible
+      if (commandDialog.style.display !== "none")
+      {
+        runMyScript();
+      }
+      // Create an DOM observer to 'listen' for changes in element's attribute.
+      const observer = new MutationObserver((mutations) =>
+      {
+        mutations.forEach((mutation) =>
+        {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'style')
+          {
+            if (commandDialog.style.display === 'none')
+            {
+              handleEscape();
+            } else
+            {
+              // If the .quick-input-widget element (command palette) is in the DOM
+              // but no inline style display: none, show the backdrop blur.
+              runMyScript();
+            }
           }
-            // Create an DOM observer to 'listen' for changes in element's attribute.
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        if (commandDialog.style.display === 'none') {
-                            handleEscape();
-                        } else {
-                            // If the .quick-input-widget element (command palette) is in the DOM
-                            // but no inline style display: none, show the backdrop blur.
-                            runMyScript();
-                        }
-                    }
-                });
-            });
+        });
+      });
 
-            observer.observe(commandDialog, { attributes: true });
+      observer.observe(commandDialog, { attributes: true });
 
-            // Clear the interval once the observer is set
-            clearInterval(checkElement);
-        } else {
-            console.log("Command dialog not found yet. Retrying...");
-        }
-    }, 500); // Check every 500ms
+      // Clear the interval once the observer is set
+      clearInterval(checkElement);
+    } else
+    {
+      console.log("Command dialog not found yet. Retrying...");
+    }
+  }, 500); // Check every 500ms
 
-    // Execute when command palette was launched.
-    document.addEventListener('keydown', function(event) {
-        if ((event.metaKey || event.ctrlKey) && event.key === 'p') {
-            event.preventDefault();
-            runMyScript();
-        } else if (event.key === 'Escape' || event.key === 'Esc') {
-            event.preventDefault();
-            handleEscape();
-        }
+  // Execute when command palette was launched.
+  document.addEventListener('keydown', function (event)
+  {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'p')
+    {
+      event.preventDefault();
+      runMyScript();
+    } else if (event.key === 'Escape' || event.key === 'Esc')
+    {
+      event.preventDefault();
+      handleEscape();
+    }
+  });
+
+  // Ensure the escape key event listener is at the document level
+  document.addEventListener('keydown', function (event)
+  {
+    if (event.key === 'Escape' || event.key === 'Esc')
+    {
+      handleEscape();
+    }
+  }, true);
+
+  function runMyScript()
+  {
+    return;
+    const targetDiv = document.querySelector(".sticky-line-content");
+
+    const stickyDiv = document.querySelector(".sticky-widget")
+
+    // Remove existing element if it already exists
+    const existingElement = document.getElementById("command-blur");
+    if (existingElement)
+    {
+      existingElement.remove();
+    }
+
+    // Create and configure the new element
+    const newElement = document.createElement("div");
+    newElement.setAttribute('id', 'command-blur');
+
+    newElement.addEventListener('click', function ()
+    {
+      newElement.remove();
+    });
+    const newElement1 = document.createElement("div");
+    newElement1.setAttribute('id', 'command-blur');
+
+
+    newElement1.addEventListener('click', function ()
+    {
+      newElement1.remove();
     });
 
-    // Ensure the escape key event listener is at the document level
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' || event.key === 'Esc') {
-            handleEscape();
-        }
-    }, true);
+    // Append the new element as a child of the targetDiv
+    targetDiv.appendChild(newElement);
+    stickyDiv.appendChild(newElement1)
+  }
 
-    function runMyScript() {
-      const targetDiv = document.querySelector(".monaco-workbench");
-       const stickyDiv = document.querySelector(".sticky-widget")
-
-        // Remove existing element if it already exists
-        const existingElement = document.getElementById("command-blur");
-        if (existingElement) {
-            existingElement.remove();
-        }
-
-        // Create and configure the new element
-        const newElement = document.createElement("div");
-        newElement.setAttribute('id', 'command-blur');
-
-        newElement.addEventListener('click', function() {
-            newElement.remove();
-        });
-      const newElement1 = document.createElement("div");
-      newElement1.setAttribute('id', 'command-blur');
-    
-  
-        newElement1.addEventListener('click', function() {
-            newElement1.remove();
-        });
-
-        // Append the new element as a child of the targetDiv
-      targetDiv.appendChild(newElement);
-      stickyDiv.appendChild(newElement1)
+  // Remove the backdrop blur from the DOM when esc key is pressed.
+  function handleEscape()
+  {
+    return;
+    var element = document.getElementById("command-blur");
+    while (element)
+    {
+      element.click();
+      element = document.getElementById("command-blur");
     }
 
-    // Remove the backdrop blur from the DOM when esc key is pressed.
-    function handleEscape() {
-      var element = document.getElementById("command-blur");
-      while (element)
-      {
-        element.click();
-        element = document.getElementById("command-blur");
-       }
-       
-       
-    }
+
+  }
 });
 
 
@@ -128,7 +151,8 @@ const ShadowBlur = 15
 
 
 // imported from https://github.com/tholman/cursor-effects/blob/master/src/rainbowCursor.js
-function createTrail(options) {
+function createTrail(options)
+{
   const totalParticles = options?.length || 20
   let particlesColor = options?.color || "#A052FF"
   const style = options?.style || "block"
@@ -136,13 +160,14 @@ function createTrail(options) {
   const context = canvas.getContext("2d")
   let cursor = { x: 0, y: 0 }
   let particles = []
-  let width,height
+  let width, height
   let sizeX = options?.size || 3
-  let sizeY = options?.sizeY || sizeX*2.2
+  let sizeY = options?.sizeY || sizeX * 2.2
   let cursorsInitted = false
 
   // update canvas size
-  function updateSize(x,y) {
+  function updateSize(x, y)
+  {
     width = x
     height = y
     canvas.width = x
@@ -150,67 +175,81 @@ function createTrail(options) {
   }
 
   // update cursor position
-  function move(x,y) {
-    x = x + sizeX/2
+  function move(x, y)
+  {
+    x = x + sizeX / 2
     cursor.x = x
     cursor.y = y
-    if (cursorsInitted === false) {
+    if (cursorsInitted === false)
+    {
       cursorsInitted = true
-      for (let i = 0; i < totalParticles; i++) {
+      for (let i = 0; i < totalParticles; i++)
+      {
         addParticle(x, y)
       }
     }
   }
 
   // particle class
-  class Particle {
-    constructor(x, y) {
+  class Particle
+  {
+    constructor(x, y)
+    {
       this.position = { x: x, y: y }
     }
   }
 
-  function addParticle(x, y, image) {
+  function addParticle(x, y, image)
+  {
     particles.push(new Particle(x, y, image))
   }
 
-  function calculatePosition() {
-    let x = cursor.x,y = cursor.y
+  function calculatePosition()
+  {
+    let x = cursor.x, y = cursor.y
 
-    for (const particleIndex in particles) {
+    for (const particleIndex in particles)
+    {
       const nextParticlePos = (particles[+particleIndex + 1] || particles[0]).position
       const particlePos = particles[+particleIndex].position
 
       particlePos.x = x;
       particlePos.y = y;
-      
+
       x += (nextParticlePos.x - particlePos.x) * 0.42
       y += (nextParticlePos.y - particlePos.y) * 0.35
     }
   }
 
   // for block cursor
-  function drawLines() {
+  function drawLines()
+  {
     context.beginPath()
     context.lineJoin = "round"
     context.strokeStyle = particlesColor
-    const lineWidth = Math.min(sizeX,sizeY)
+    const lineWidth = Math.min(sizeX, sizeY)
     context.lineWidth = lineWidth
 
-    if (UseShadow) {
+    if (UseShadow)
+    {
       context.shadowColor = ShadowColor;
       context.shadowBlur = ShadowBlur;
     }
 
     // draw 3 lines
-    let ymut = (sizeY-lineWidth)/3
-    for (let yoffset=0;yoffset<=3;yoffset++) {
-      let offset = yoffset*ymut
-      for (const particleIndex in particles) {
+    let ymut = (sizeY - lineWidth) / 3
+    for (let yoffset = 0; yoffset <= 3; yoffset++)
+    {
+      let offset = yoffset * ymut
+      for (const particleIndex in particles)
+      {
         const pos = particles[particleIndex].position
-        if (particleIndex == 0) {
-          context.moveTo(pos.x, pos.y + offset + lineWidth/2)
-        } else {
-          context.lineTo(pos.x, pos.y + offset + lineWidth/2)
+        if (particleIndex == 0)
+        {
+          context.moveTo(pos.x, pos.y + offset + lineWidth / 2)
+        } else
+        {
+          context.lineTo(pos.x, pos.y + offset + lineWidth / 2)
         }
       }
     }
@@ -218,26 +257,32 @@ function createTrail(options) {
   }
 
   // for line cursor
-  function drawPath() {
+  function drawPath()
+  {
     context.beginPath()
     context.fillStyle = particlesColor
-    if (UseShadow) {
+    if (UseShadow)
+    {
       context.shadowColor = ShadowColor;
       context.shadowBlur = ShadowBlur;
     }
 
     // draw path
-    for (let particleIndex=0;particleIndex<totalParticles;particleIndex++) {
+    for (let particleIndex = 0; particleIndex < totalParticles; particleIndex++)
+    {
       const pos = particles[+particleIndex].position
-      if (particleIndex == 0) {
+      if (particleIndex == 0)
+      {
         context.moveTo(pos.x, pos.y)
-      } else {
+      } else
+      {
         context.lineTo(pos.x, pos.y)
       }
     }
-    for (let particleIndex=totalParticles-1;particleIndex>=0;particleIndex--) {
+    for (let particleIndex = totalParticles - 1; particleIndex >= 0; particleIndex--)
+    {
       const pos = particles[+particleIndex].position
-      context.lineTo(pos.x, pos.y+sizeY)
+      context.lineTo(pos.x, pos.y + sizeY)
     }
     context.closePath()
     context.fill()
@@ -245,31 +290,36 @@ function createTrail(options) {
     context.beginPath()
     context.lineJoin = "round"
     context.strokeStyle = particlesColor
-    context.lineWidth = Math.min(sizeX,sizeY)
+    context.lineWidth = Math.min(sizeX, sizeY)
     // for up&down
-    let offset = -sizeX/2 + sizeY/2
-    for (const particleIndex in particles) {
+    let offset = -sizeX / 2 + sizeY / 2
+    for (const particleIndex in particles)
+    {
       const pos = particles[particleIndex].position
-      if (particleIndex == 0) {
+      if (particleIndex == 0)
+      {
         context.moveTo(pos.x, pos.y + offset)
-      } else {
+      } else
+      {
         context.lineTo(pos.x, pos.y + offset)
       }
     }
     context.stroke()
   }
 
-  function updateParticles() {
+  function updateParticles()
+  {
     if (!cursorsInitted) return
 
     context.clearRect(0, 0, width, height)
     calculatePosition()
 
-    if (style=="line") drawPath()
-    else if (style=="block") drawLines()
+    if (style == "line") drawPath()
+    else if (style == "block") drawLines()
   }
 
-  function updateCursorSize(newSize,newSizeY) {
+  function updateCursorSize(newSize, newSizeY)
+  {
     sizeX = newSize
     if (newSizeY) sizeY = newSizeY
   }
@@ -285,12 +335,14 @@ function createTrail(options) {
 // cursor create/remove/move event handler
 // by qwreey
 // (very dirty but may working)
-async function createCursorHandler(handlerFunctions) {
+async function createCursorHandler(handlerFunctions)
+{
   // Get Editor with dirty way (... due to vscode plugin api's limit)
   /** @type { Element } */
   let editor
-  while (!editor) {
-    await new Promise(resolve=>setTimeout(resolve, 100))
+  while (!editor)
+  {
+    await new Promise(resolve => setTimeout(resolve, 100))
     editor = document.querySelector(".part.editor")
   }
   handlerFunctions?.onStarted(editor)
@@ -302,25 +354,28 @@ async function createCursorHandler(handlerFunctions) {
   let lastCursor = 0
 
   // cursor update handler
-  function createCursorUpdateHandler(target,cursorId,cursorHolder,minimap) {
-    let lastX,lastY // save last position
-    let update = (editorX,editorY)=>{
+  function createCursorUpdateHandler(target, cursorId, cursorHolder, minimap)
+  {
+    let lastX, lastY // save last position
+    let update = (editorX, editorY) =>
+    {
       // If cursor was destroyed, remove update handler
-      if (!lastObjects[cursorId]) {
-        updateHandlers.splice(updateHandlers.indexOf(update),1)
+      if (!lastObjects[cursorId])
+      {
+        updateHandlers.splice(updateHandlers.indexOf(update), 1)
         return
       }
 
       // get cursor position
-      let {left:newX,top:newY} = target.getBoundingClientRect()
-      let revX = newX-editorX,revY = newY-editorY
+      let { left: newX, top: newY } = target.getBoundingClientRect()
+      let revX = newX - editorX, revY = newY - editorY
 
       // if have no changes, ignore
       if (revX == lastX && revY == lastY && lastCursor == cursorId) return
-      lastX = revX;lastY = revY // update last position
+      lastX = revX; lastY = revY // update last position
 
       // wrong position
-      if (revX<=0 || revY<=0) return
+      if (revX <= 0 || revY <= 0) return
 
       // if it is invisible, ignore
       if (target.style.visibility == "hidden") return
@@ -333,59 +388,66 @@ async function createCursorHandler(handlerFunctions) {
 
       // update corsor position
       lastCursor = cursorId
-      handlerFunctions?.onCursorPositionUpdated(revX,revY)
-      handlerFunctions?.onCursorSizeUpdated(target.clientWidth,target.clientHeight)
+      handlerFunctions?.onCursorPositionUpdated(revX, revY)
+      handlerFunctions?.onCursorSizeUpdated(target.clientWidth, target.clientHeight)
     }
     updateHandlers.push(update)
   }
 
   // handle cursor create/destroy event (using polling, due to event handlers are LAGGY)
   let lastVisibility = "hidden"
-  setInterval(async ()=>{
-    let now = [],count = 0
+  setInterval(async () =>
+  {
+    let now = [], count = 0
     // created
-    for (const target of editor.getElementsByClassName("cursor")) {
+    for (const target of editor.getElementsByClassName("cursor"))
+    {
       if (target.style.visibility != "hidden") count++
-      if (target.hasAttribute("cursorId")) {
+      if (target.hasAttribute("cursorId"))
+      {
         now.push(+target.getAttribute("cursorId"))
         continue
       }
       let thisCursorId = cursorId++
       now.push(thisCursorId)
       lastObjects[thisCursorId] = target
-      target.setAttribute("cursorId",thisCursorId)
+      target.setAttribute("cursorId", thisCursorId)
       let cursorHolder = target.parentElement.parentElement.parentElement
       let minimap = cursorHolder.parentElement.querySelector(".minimap")
-      createCursorUpdateHandler(target,thisCursorId,cursorHolder,minimap)
+      createCursorUpdateHandler(target, thisCursorId, cursorHolder, minimap)
       // console.log("DEBUG-CursorCreated",thisCursorId)
     }
-    
+
     // update visible
-    let visibility = count<=1 ? "visible" : "hidden"
-    if (visibility != lastVisibility) {
+    let visibility = count <= 1 ? "visible" : "hidden"
+    if (visibility != lastVisibility)
+    {
       handlerFunctions?.onCursorVisibilityChanged(visibility)
       lastVisibility = visibility
     }
 
     // destroyed
-    for (const id in lastObjects) {
+    for (const id in lastObjects)
+    {
       if (now.includes(+id)) continue
       delete lastObjects[+id]
       // console.log("DEBUG-CursorRemoved",+id)
     }
-  },handlerFunctions?.cursorUpdatePollingRate || 500)
+  }, handlerFunctions?.cursorUpdatePollingRate || 500)
 
   // read cursor position polling
-  function updateLoop() {
-    let {left:editorX,top:editorY} = editor.getBoundingClientRect()
-    for (handler of updateHandlers) handler(editorX,editorY)
+  function updateLoop()
+  {
+    let { left: editorX, top: editorY } = editor.getBoundingClientRect()
+    for (handler of updateHandlers) handler(editorX, editorY)
     handlerFunctions?.onLoop()
     requestAnimationFrame(updateLoop)
   }
 
   // handle editor view size changed event
-  function updateEditorSize() {
-    handlerFunctions?.onEditorSizeUpdated(editor.clientWidth,editor.clientHeight)
+  function updateEditorSize()
+  {
+    handlerFunctions?.onEditorSizeUpdated(editor.clientWidth, editor.clientHeight)
   }
   new ResizeObserver(updateEditorSize).observe(editor)
   updateEditorSize()
@@ -396,14 +458,15 @@ async function createCursorHandler(handlerFunctions) {
 }
 
 // Main handler code
-let cursorCanvas,rainbowCursorHandle
+let cursorCanvas, rainbowCursorHandle
 createCursorHandler({
 
   // cursor create/destroy event handler polling rate
   cursorUpdatePollingRate: CursorUpdatePollingRate,
 
   // When editor instance stared
-  onStarted: (editor)=>{
+  onStarted: (editor) =>
+  {
     // create new canvas for make animation
     cursorCanvas = document.createElement("canvas")
     cursorCanvas.style.pointerEvents = "none"
@@ -417,7 +480,8 @@ createCursorHandler({
     // thanks to https://github.com/tholman/cursor-effects/blob/master/src/rainbowCursor.js
     // we can create trail effect!
     let color = Color
-    if (color == "default") {
+    if (color == "default")
+    {
       color = getComputedStyle(
         document.querySelector("body>.monaco-workbench"))
         .getPropertyValue("--vscode-editorCursor-background")
@@ -433,31 +497,36 @@ createCursorHandler({
     })
   },
 
-  onReady:()=>{},
+  onReady: () => { },
 
   // when cursor moved
-  onCursorPositionUpdated: (x,y)=>{
-    rainbowCursorHandle.move(x,y)
+  onCursorPositionUpdated: (x, y) =>
+  {
+    rainbowCursorHandle.move(x, y)
   },
 
   // when editor view size changed
-  onEditorSizeUpdated: (x,y)=>{
-    rainbowCursorHandle.updateSize(x,y)
+  onEditorSizeUpdated: (x, y) =>
+  {
+    rainbowCursorHandle.updateSize(x, y)
   },
 
   // when cursor size changed (emoji, ...)
-  onCursorSizeUpdated: (x,y)=>{
-    rainbowCursorHandle.updateCursorSize(x,y)
+  onCursorSizeUpdated: (x, y) =>
+  {
+    rainbowCursorHandle.updateCursorSize(x, y)
     // rainbowCursorHandle.updateCursorSize(parseInt(y/lineHeight))
   },
 
   // when using multi cursor... just hide all
-  onCursorVisibilityChanged: (visibility)=>{
+  onCursorVisibilityChanged: (visibility) =>
+  {
     cursorCanvas.style.visibility = visibility
   },
 
   // update animation
-  onLoop: ()=>{
+  onLoop: () =>
+  {
     rainbowCursorHandle.updateParticles()
   },
 

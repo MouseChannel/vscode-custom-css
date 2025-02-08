@@ -1,5 +1,6 @@
 .mtk3 {
-    font-family: 'Monaspace Radon', monospace !important;
+    /* font-family: 'Monaspace Radon', monospace !important; */
+    font-family: 'Geist Mono' !important;
     color: #008c7d !important;
 }
 
@@ -14,7 +15,7 @@
 /* linear-gradient(#373636 0%, #21252a 100%) !important; */
 
 .monaco-hover {
-    box-shadow: 0px 0px 0px 0px rgba(239, 233, 233, 0.4) !important;
+    box-shadow: 0px 0px 0px 0px rgba(239, 233, 233, 0.8) !important;
     padding: 2px !important;
     background-image: none;
     backdrop-filter: blur(6px) !important;
@@ -26,12 +27,12 @@
 
 
 .search-label {
-    font-family: 'Geist Mono' !important;
-    font-size: 17px !important;
-    /*
-    color: #722929; */
+    font-family: 'JetBrainsMono NF' !important;
+    font-size: 18px !important;
 
-    display: none;
+    color: #F7F6F5;
+
+    display: contents;
 }
 
 .search-icon {
@@ -52,7 +53,20 @@
     opacity: 1 !important;
 }
 
+.search-label::before {
+    content: '😎';
+    margin-right: 6px;
+    font-size: 1.1rem;
+}
+
+.search-label::after {
+    content: '😎';
+    margin-left: 6px;
+    font-size: 1.1rem;
+}
+
 .quick-input-widget {
+    font-family: 'JetBrainsMono NF' !important;
     transform: translateY(-50%) !important;
     top: 50% !important;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, .45) !important;
@@ -60,6 +74,35 @@
     background-image: linear-gradient(#090909 0%, #08080e 100%) !important;
     backdrop-filter: blur(3px) !important;
     border-radius: 20px !important;
+
+}
+
+.notification-list-item-message {
+    font-family: 'JetBrainsMono NF' !important;
+}
+
+.notification-list-item-source {
+    font-family: 'JetBrainsMono NF' !important;
+}
+
+.monaco-text-button {
+    font-family: 'JetBrainsMono NF' !important;
+}
+
+.label-name {
+    font-family: 'JetBrainsMono NF' !important;
+}
+
+/* .menu-entry { */
+/* display: none !important; */
+/* } */
+
+.monaco-dropdown-with-primary {
+    display: none !important;
+}
+
+.statusbar-item-label {
+    font-family: 'JetBrainsMono NF' !important;
 }
 
 #command-blur {
@@ -78,11 +121,16 @@
 }
 
 .monaco-list-row:hover {
-    background: rgba(40, 32, 53, 0.2) !important;
+    background: rgba(164, 181, 213, 0.65) !important;
 }
 
 .monaco-inputbox input::placeholder {
     color: rgba(255, 255, 255, .3) !important;
+}
+
+.part.sidebar {
+    font-family: 'JetBrainsMono NF' !important;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, .25);
 }
 
 /* .monaco-list.list_id_1 .monaco-list-row.selected {
@@ -91,7 +139,7 @@
     border-top: 1px #727b90 solid;
     border-bottom: 1px #727b90 solid;
 } */
- 
+
 /* ----- */
 /*
 .monaco-workbench .part.editor>.content .editor-group-container>.title .editor-actions {
@@ -238,11 +286,11 @@
     background-color: rgb(181 198 228 / 25%) !important;
 } */
 
- .synthetic-focus {
+.synthetic-focus {
     outline-color: rgba(50, 50, 50, 1) !important;
     display: block;
     background-color: tomato;
-} 
+}
 
 /* .quick-input-widget .monaco-label {
     font-size: 11px !important;
@@ -275,7 +323,7 @@
 .monaco-inputbox input::placeholder {
     color: rgba(255, 255, 255, .3) !important;
 }
- 
+
 .monaco-workbench label {
     color: #fff !important;
     font-size: 14px !important;
