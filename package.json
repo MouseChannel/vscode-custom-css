@@ -1,6 +1,6 @@
 {
 	"name": "mousechannel-vscode-custom-css",
-	"version": "7.4.0",
+	"version": "0.0.1",
 	"publisher": "mousechannel",
 	"engines": {
 		"vscode": "^1.93.0"
