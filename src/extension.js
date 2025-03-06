@@ -132,7 +132,10 @@ function activate(context)
 
 		const fileUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip";
 		const fileName = path.basename(fileUrl);
-		const filePath = path.join("C:\\Users\\moche\\AppData\\Local\\Temp", fileName);
+
+
+		const homeDir = os.homedir();
+		const filePath = path.join(path.join(os.homedir(), "AppData\\Local\\Temp"), fileName);
 		const dst_font_dir = "C:\\Windows\\Fonts\\JetBrainsMono"
 		if (!fs.existsSync(filePath))
 		{
