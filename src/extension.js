@@ -129,6 +129,38 @@ function activate(context)
 	}
 	async function installFont()
 	{
+		if (os.platform() == "darwin")
+		{
+			const scriptPath = path.join(__dirname, "../my/installFont.sh");
+			exec(`sh ${scriptPath}`, (error, stdout, stderr) =>
+			{
+				if (error)
+				{
+					console.error(`执行错误: ${error}`);
+					return;
+				}
+				console.log(`输出: ${stdout}`);
+				if (stderr) console.error(`错误输出: ${stderr}`);
+			});
+			return
+			// const child = spawn('sh', scriptPath);
+			// child.stdout.on('data', (data) =>
+			// {
+			// 	console.log(`输出: ${data}`);
+			// });
+
+			// child.stderr.on('data', (data) =>
+			// {
+			// 	console.error(`错误输出: ${data}`);
+			// });
+
+			// child.on('close', (code) =>
+			// {
+			// 	console.log(`子进程退出，退出码 ${code}`);
+			// });
+
+
+		}
 
 		const fileUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip";
 		const fileName = path.basename(fileUrl);
@@ -139,10 +171,6 @@ function activate(context)
 		const dst_font_dir = "C:\\Windows\\Fonts\\JetBrainsMono"
 		if (!fs.existsSync(filePath))
 		{
-
-
-
-
 			await vscode.window.withProgress({
 				location: vscode.ProgressLocation.Notification,
 				title: 'Downloading Font...',
