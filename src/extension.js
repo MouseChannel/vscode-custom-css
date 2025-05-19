@@ -129,7 +129,7 @@ function activate(context)
 	}
 	async function installFont()
 	{
-		if (os.platform() == "darwin")
+		if (os.platform() == "darwin" || os.platform() == "linux")
 		{
 			const scriptPath = path.join(__dirname, "../my/installFont.sh");
 			exec(`sh ${scriptPath}`, (error, stdout, stderr) =>
@@ -161,6 +161,40 @@ function activate(context)
 
 
 		}
+		if (os.platform() == "linux")
+		{
+			const scriptPath = path.join(__dirname, "../my/installFont_linux.sh");
+			exec(`sh ${scriptPath}`, (error, stdout, stderr) =>
+			{
+				if (error)
+				{
+					console.error(`执行错误: ${error}`);
+					return;
+				}
+				console.log(`输出: ${stdout}`);
+				if (stderr) console.error(`错误输出: ${stderr}`);
+			});
+			return
+			// const child = spawn('sh', scriptPath);
+			// child.stdout.on('data', (data) =>
+			// {
+			// 	console.log(`输出: ${data}`);
+			// });
+
+			// child.stderr.on('data', (data) =>
+			// {
+			// 	console.error(`错误输出: ${data}`);
+			// });
+
+			// child.on('close', (code) =>
+			// {
+			// 	console.log(`子进程退出，退出码 ${code}`);
+			// });
+
+
+		}
+		let aa = os.platform()
+		print(os.platform())
 
 		const fileUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip";
 		const fileName = path.basename(fileUrl);
